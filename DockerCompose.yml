@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - redis_network
+
+  pg:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: bmessage_data_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: DN2LcGWkZkB5sQjiViKJpG45dTrFoDwKmooZxVsHB5ah0Mtxw7kYzPGeWF63C0p4Kd1VaYW0mUff0Kaqv9z52ugC18FvrXbGRrL6
+    command: postgres -c 'max_connections=10000'
+    ports:
+      - "9999:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - pg_network
+
+volumes:
+  redis_data:
+    driver: local
+  pg_data:
+    driver: local
+
+networks:
+  redis_network:
+  pg_network:

@@ -1,0 +1,80 @@
+info:
+  contact: {}
+paths:
+  /auth/get-tokens:
+    get:
+      consumes:
+      - application/json
+      description: Эндпойнт для генерации access и refresh токенов на основе GUID
+        пользователя.
+      parameters:
+      - description: GUID пользователя
+        in: query
+        name: GUID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: bad request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получение токенов по GUID пользователя
+      tags:
+      - Auth
+  /auth/refresh-tokens:
+    get:
+      consumes:
+      - application/json
+      description: Эндпойнт для обновления access и refresh токенов на основе существующего
+        refresh токена.
+      parameters:
+      - description: Access токен
+        in: query
+        name: access_token
+        required: true
+        type: string
+      - description: Refresh токен
+        in: query
+        name: refresh_token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: successful response
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: bad request
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: unauthorized
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: internal server error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновление токенов по Access и Refresh токенам
+      tags:
+      - Auth
+swagger: "2.0"
